@@ -33,7 +33,9 @@ selective_scan_cuda = load(
                 "csrc/selective_scan/selective_scan_bwd_bf16_real.cu",
                 "csrc/selective_scan/selective_scan_bwd_bf16_complex.cu",
     ],
-    include_dirs=["csrc/selective_scan"],
+    extra_include_paths=["csrc/selective_scan"],  # ✅ correct way to add -I flags
+    extra_cflags=["-O3"],
+    extra_cuda_cflags=["-O3", "--use_fast_math"],
     verbose=True,
 )
 
