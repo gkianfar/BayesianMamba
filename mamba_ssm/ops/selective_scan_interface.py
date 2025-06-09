@@ -19,26 +19,7 @@ from mamba_ssm.ops.triton.layer_norm import _layer_norm_fwd
 
 from torch.utils.cpp_extension import load
 
-selective_scan_cuda = load(
-    name="selective_scan_cuda",
-    sources=[
-        "csrc/selective_scan/selective_scan.cpp",
-                "csrc/selective_scan/selective_scan_fwd_fp32.cu",
-                "csrc/selective_scan/selective_scan_fwd_fp16.cu",
-                "csrc/selective_scan/selective_scan_fwd_bf16.cu",
-                "csrc/selective_scan/selective_scan_bwd_fp32_real.cu",
-                "csrc/selective_scan/selective_scan_bwd_fp32_complex.cu",
-                "csrc/selective_scan/selective_scan_bwd_fp16_real.cu",
-                "csrc/selective_scan/selective_scan_bwd_fp16_complex.cu",
-                "csrc/selective_scan/selective_scan_bwd_bf16_real.cu",
-                "csrc/selective_scan/selective_scan_bwd_bf16_complex.cu",
-    ],
-    extra_include_paths=["csrc/selective_scan"],  # ✅ correct way to add -I flags
-    extra_cflags=["-O3"],
-    extra_cuda_cflags=["-O3", "--use_fast_math"],
-    verbose=True,
-)
-
+import selective_scan_cuda 
 
 class SelectiveScanFn(torch.autograd.Function):
 
