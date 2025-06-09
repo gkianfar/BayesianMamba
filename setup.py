@@ -299,6 +299,7 @@ def get_wheel_url():
     wheel_url = BASE_WHEEL_URL.format(
         tag_name=f"v{mamba_ssm_version}", wheel_name=wheel_filename
     )
+    print("==> Wheel filename would be:", wheel_filename)
     return wheel_url, wheel_filename
 
 
